@@ -4,11 +4,8 @@ steps:
     id: Test
     entrypoint: /bin/sh
     args:
-      [
-        "-c",
-        "pip install -t /workspace/lib -r requirements.txt",
-        "&& pip install pytest && pytest",
-      ]
+      - -c
+      - "pip install -r requirements.txt && pip install pytest && pytest"
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
       [
