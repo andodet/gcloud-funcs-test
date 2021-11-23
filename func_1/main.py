@@ -1,2 +1,3 @@
 def hello(request=None):
-    return "hello from function 1 (rev1)"
+    print("small mod")
+    return "hello from function 1"

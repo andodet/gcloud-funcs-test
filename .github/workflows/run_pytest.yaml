@@ -1,0 +1,37 @@
+on:
+  pull_request:
+    branches: [main, master, dev]
+
+name: pytest
+
+jobs:
+  deploy_functions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Get git diff
+        id: git_diff
+
+        shell: bash
+        run: |
+          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
+
+      - name: pytest
+        shell: bash
+        run: |
+          for i in $(ls); do
+              if [[ "$i" == ".github" ]]; then
+                  continue
+              fi
+              pip install pytest
+              if [[ -d "$i" ]]; then
+                  cd $i
+                      pip install -r requirements.txt
+                      pytest
+                  cd ..
+              fi
+              done
