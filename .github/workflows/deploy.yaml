@@ -25,21 +25,26 @@ jobs:
         run: |
           # Cloud Build doesn't recover the .git file. Thus checkout the repo for this
           git clone --branch main https://github.com/andodet/func-ci-test.git /tmp/repo ;
-          mv /tmp/repo/.git .
+          # mv /tmp/repo/.git .
           # Make a diff between this version and the previous one and store the result into a file
           # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
           git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
         env:
-          BRANCH_NAME: master
+          BRANCH_NAME: mastergt
+
+    - name: Echo results
+      shell: bash
+      run: |
+        echo $${{ steps.git_diff.outputs }}
 
       # Do what you want, by performing a loop in to the directory. Here launch a cloud build
       # TODO: is gcloud already authenticated???
-      - name: gcloud_builds
-        shell: bash
-        run: |
-          # for i in $$(cat /workspace/diff);  do
-          for i in $$(cat ${{ steps.git_diff.outputs }}); do
-          cd $$i
-              gcloud builds submit
-          cd ..
-          done
+      # - name: gcloud_builds
+      #   shell: bash
+      #   run: |
+      #     # for i in $$(cat /workspace/diff);  do
+      #     for i in $$(cat ${{ steps.git_diff.outputs }}); do
+      #     cd $$i
+      #         gcloud builds submit
+      #     cd ..
+      #     done
