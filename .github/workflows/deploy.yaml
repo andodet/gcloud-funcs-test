@@ -43,8 +43,8 @@ jobs:
       - name: gcloud_builds
         shell: bash
         run: |
-          for i in $$(cat ${{ steps.git_diff.outputs.diff }}); do
-          cd $$i
+          for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
+          cd $i
               gcloud builds submit
           cd ..
           done
