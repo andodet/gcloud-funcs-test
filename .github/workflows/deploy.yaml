@@ -1,10 +1,8 @@
 on:
   push:
     branches: [main, master]
-  pull_request:
-    branches: [main, master]
 
-name: deploy_functions
+name: deploy
 
 jobs:
   deploy_functions:
