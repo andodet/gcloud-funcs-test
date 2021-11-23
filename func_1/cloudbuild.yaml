@@ -1,0 +1,23 @@
+steps:
+  - name: "docker.io/library/python:3.7"
+    id: Test
+    entrypoint: /bin/sh
+    args:
+      [
+        "-c",
+        "pip install -t /workspace/lib -r requirements.txt",
+        "&& pip install pytest && pytest",
+      ]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      [
+        "gcloud",
+        "functions",
+        "deploy",
+        "func_1",
+        "--entry-point=hello",
+        "--region=us-central1",
+        "--source=.",
+        "--trigger-http",
+        "--runtime=python39",
+      ]

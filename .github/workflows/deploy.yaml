@@ -1,0 +1,47 @@
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: deploy_functions
+
+jobs:
+  deploy_functions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+      - uses: actions/checkout@v2
+
+      - name: Get git diff
+        id: git_diff
+        shell: bash
+        run: |
+          # Cloud Build doesn't recover the .git file. Thus checkout the repo for this
+          # git clone --branch $BRANCH_NAME https://github.com/andodet/func-ci-test.git /tmp/repo ;
+          # Copy only the .git file
+          # mv /tmp/repo/.git .
+          # Make a diff between this version and the previous one and store the result into a file
+          # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
+          echo git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
+        env:
+          BRANCH_NAME: master
+
+      # Do what you want, by performing a loop in to the directory. Here launch a cloud build
+      # TODO: is gcloud already authenticated???
+      - name: gcloud_builds
+        shell: bash
+        args: |
+          # for i in $$(cat /workspace/diff); do
+          for i in $$(cat ${{ steps.git_diff.outputs }}); do
+          cd $$i
+              gcloud builds submit
+          cd ..
+          done
