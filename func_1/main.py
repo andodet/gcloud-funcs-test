@@ -1,3 +1,3 @@
 def hello(request=None):
-    print("a")
+    print("another try")
     return "hello from function 1"
