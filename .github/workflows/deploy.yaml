@@ -29,7 +29,8 @@ jobs:
           # mv /tmp/repo/.git .
           # Make a diff between this version and the previous one and store the result into a file
           # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
-          echo git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
+          # echo git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
+          ls -a
         env:
           BRANCH_NAME: master
 
