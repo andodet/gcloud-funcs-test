@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
-            if [[ "$i" == ".github"]]; then
+            if [[ "$i" == ".github" ]]; then
               continue
             fi
             cd $i
