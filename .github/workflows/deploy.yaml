@@ -37,7 +37,7 @@ jobs:
       # TODO: is gcloud already authenticated???
       - name: gcloud_builds
         shell: bash
-        args: |
+        run: |
           # for i in $$(cat /workspace/diff); do
           for i in $$(cat ${{ steps.git_diff.outputs }}); do
           cd $$i
