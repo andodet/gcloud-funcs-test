@@ -29,8 +29,7 @@ jobs:
           # mv /tmp/repo/.git .
           # Make a diff between this version and the previous one and store the result into a file
           # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
-          # echo git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
-          ls -a
+          git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
         env:
           BRANCH_NAME: master
 
@@ -39,7 +38,7 @@ jobs:
       - name: gcloud_builds
         shell: bash
         run: |
-          # for i in $$(cat /workspace/diff); do
+          # for i in $$(cat /workspace/diff);  do
           for i in $$(cat ${{ steps.git_diff.outputs }}); do
           cd $$i
               gcloud builds submit
