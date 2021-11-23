@@ -38,12 +38,12 @@ jobs:
         run: |
           echo ${{ steps.git_diff.outputs.diff }}
 
-      Do what you want, by performing a loop in to the directory. Here launch a cloud build
-      TODO: is gcloud already authenticated???
+      # Do what you want, by performing a loop in to the directory. Here launch a cloud build
+      # TODO: is gcloud already authenticated???
       - name: gcloud_builds
         shell: bash
         run: |
-          # for i in $$(cat /workspace/diff);  do
+          # for i in $$(cat /workspace/diff); do
           for i in $$(cat ${{ steps.git_diff.outputs.diff }}); do
           cd $$i
               gcloud builds submit
