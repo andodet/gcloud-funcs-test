@@ -24,9 +24,8 @@ jobs:
         shell: bash
         run: |
           # Cloud Build doesn't recover the .git file. Thus checkout the repo for this
-          # git clone --branch $BRANCH_NAME https://github.com/andodet/func-ci-test.git /tmp/repo ;
-          # Copy only the .git file
-          # mv /tmp/repo/.git .
+          git clone --branch main https://github.com/andodet/func-ci-test.git /tmp/repo ;
+          mv /tmp/repo/.git .
           # Make a diff between this version and the previous one and store the result into a file
           # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
           git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
