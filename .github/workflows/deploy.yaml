@@ -30,10 +30,8 @@ jobs:
           # mv /tmp/repo/.git .
           # Make a diff between this version and the previous one and store the result into a file
           # git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq > /workspace/diff
-          ::set-output name=diff::git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq
+          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
           # git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]\+% //g'
-        env:
-          BRANCH_NAME: mastergt
 
       - name: Echo results
         shell: bash
