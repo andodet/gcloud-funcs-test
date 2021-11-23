@@ -36,7 +36,7 @@ jobs:
       - name: Echo results
         shell: bash
         run: |
-          echo $${{ steps.git_diff.outputs.diff }}
+          echo ${{ steps.git_diff.outputs.diff }}
 
       # Do what you want, by performing a loop in to the directory. Here launch a cloud build
       # TODO: is gcloud already authenticated???
