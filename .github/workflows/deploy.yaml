@@ -23,29 +23,28 @@ jobs:
         id: git_diff
         shell: bash
         run: |
-          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
+          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ !(.github) | grep "/" | cut -d"/" -f1 | uniq)
 
-      - name: Check if needs running
-        id: run_check
-        shell: bash
-        run: |
-          if [[ ${{ steps.git_diff.outputs.diff }} == ".github" ]]; then
-              to_run=false
-          else
-              to_run=true
-          fi
-          echo $to_run
-          echo ::set-output name=needs_running::$to_run
-
+      # - name: Check if needs running
+      #   id: run_check
+      #   shell: bash
+      #   run: |
+      #     if [[ ${{ steps.git_diff.outputs.diff }} == ".github" ]]; then
+      #         to_run=false
+      #     else
+      #         to_run=true
+      #     fi
+      #     echo $to_run
+      #     echo ::set-output name=needs_running::$to_run
       - name: Run Cloud Build
         shell: bash
         run: |
           for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
-            # if [[ "$i" == ".github" ]]; then
-            #   continue
-            # fi
+            if [[ "$i" == ".github" ]]; then
+              continue
+            fi
             cd $i
                 gcloud builds submit
             cd ..
           done
-        if: steps.run_check.outputs.needs_running  == 'true'
+        # if: steps.run_check.outputs.needs_running  == 'true'
