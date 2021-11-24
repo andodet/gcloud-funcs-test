@@ -35,7 +35,7 @@ jobs:
               to_run=true
           fi
           echo $to_run
-          echo ::set-output name=needs_running::echo $to_run
+          echo ::set-output name=needs_running::$to_run
 
       - name: Run Cloud Build
         shell: bash
