@@ -24,14 +24,11 @@ jobs:
         shell: bash
         run: |
           for i in $(ls); do
-              if [[ "$i" == ".github" ]]; then
-                  continue
-              fi
-              pip install pytest
-              if [[ -d "$i" ]]; then
-                  cd $i
-                      pip install -r requirements.txt
-                      pytest
-                  cd ..
-              fi
-              done
+            pip install pytest
+            if [[ -d "$i" ]]; then
+                cd $i
+                    pip install -r requirements.txt
+                    pytest
+                cd ..
+            fi
+            done

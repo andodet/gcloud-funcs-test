@@ -41,9 +41,9 @@ jobs:
         shell: bash
         run: |
           for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
-            if [[ "$i" == ".github" ]]; then
-              continue
-            fi
+            # if [[ "$i" == ".github" ]]; then
+            #   continue
+            # fi
             cd $i
                 gcloud builds submit
             cd ..
