@@ -2,7 +2,7 @@ on:
   pull_request:
     branches: [main, master, dev]
 
-name: pytest
+name: gotest
 
 jobs:
   deploy_functions:
@@ -11,7 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: pytest
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: go test
         shell: bash
         run: |
           # For every file in repo
@@ -19,20 +24,16 @@ jobs:
             # If it's a folder
             if [[ -d "$i" ]]; then
               cd $i
-                is_py=0
+                is_go=0
                 for f in $(ls); do
                   # Check if contains python files
                   if [[ $f == *.py ]]; then
-                    is_py=$((is_py+1))
+                    is_go=$((is_go+1))
                   fi
                 done
                 # Run tests if it does
-                if ((is_py == 0)); then
-                  cd .. 
-                  continue
-                else
-                  pip install -r requirements.txt
-                  pytest
+                if ((is_go > 0)); then
+                  go test test*.go
                   cd ..
                 fi
             fi
