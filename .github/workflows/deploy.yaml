@@ -48,4 +48,4 @@ jobs:
                 gcloud builds submit
             cd ..
           done
-        if: ${{ steps.run_check.outputs.needs_running  == 'true' }}
+        if: steps.run_check.outputs.needs_running  == 'true'
