@@ -23,7 +23,7 @@ jobs:
         id: git_diff
         shell: bash
         run: |
-          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ !(.github) | grep "/" | cut -d"/" -f1 | uniq)
+          echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
 
       # - name: Check if needs running
       #   id: run_check
