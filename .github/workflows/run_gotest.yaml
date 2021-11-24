@@ -27,13 +27,17 @@ jobs:
                 is_go=0
                 for f in $(ls); do
                   # Check if contains python files
-                  if [[ $f == *.py ]]; then
+                  if [[ $f == *.go && $(ls | grep "test") ]]; then
                     is_go=$((is_go+1))
                   fi
                 done
                 # Run tests if it does
-                if ((is_go > 0)); then
-                  go test test*.go
+                if ((is_go == 0)); then
+                  echo "$i: no tests found"
+                  cd .. 
+                  continue
+                else
+                  go test test*
                   cd ..
                 fi
             fi

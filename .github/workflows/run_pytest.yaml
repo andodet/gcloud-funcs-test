@@ -14,7 +14,6 @@ jobs:
       - name: pytest
         shell: bash
         run: |
-          # For every file in repo
           for i in $(ls); do
             # If it's a folder
             if [[ -d "$i" ]]; then
@@ -28,6 +27,7 @@ jobs:
                 done
                 # Run tests if it does
                 if ((is_py == 0)); then
+                  echo "$i: no tests found"
                   cd .. 
                   continue
                 else
