@@ -25,10 +25,11 @@ jobs:
         run: |
           echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
 
-      - name: gcloud_builds
+      - name: Run Cloud Build
         shell: bash
         run: |
           for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
+            # No need to run this on CI changes
             if [[ "$i" == ".github" ]]; then
               continue
             fi

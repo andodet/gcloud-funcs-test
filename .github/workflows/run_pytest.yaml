@@ -15,12 +15,12 @@ jobs:
 
       - name: Get git diff
         id: git_diff
-
+        # We need to store the diff to traverse over it in the next step
         shell: bash
         run: |
           echo ::set-output name=diff::$(git diff --name-only --diff-filter=AMDR @~..@ | grep "/" | cut -d"/" -f1 | uniq)
 
-      - name: pytest
+      - name: Run tests
         shell: bash
         run: |
           for i in $(ls); do
