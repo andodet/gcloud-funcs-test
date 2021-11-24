@@ -14,6 +14,7 @@ jobs:
       - name: pytest
         shell: bash
         run: |
+          pip install pytest
           for i in $(ls); do
             # If it's a folder
             if [[ -d "$i" ]]; then
