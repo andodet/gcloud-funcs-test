@@ -29,7 +29,12 @@ jobs:
         id: run_check
         shell: bash
         run: |
-          echo ::set-output name=needs_skipping::if [[ ${{ steps.git_diff.outputs.diff }} == ".github" ]]; then echo true else echo false fi
+          if [[ ${{ steps.git_diff.outputs.diff }} == ".github" ]]; then
+              to_run=false
+          else
+              to_run=true
+          fi
+          echo ::set-output name=needs_running::echo $to_run
 
       - name: Run Cloud Build
         shell: bash
@@ -42,4 +47,4 @@ jobs:
                 gcloud builds submit
             cd ..
           done
-        if: ${{ steps.run_check.outputs.needs_running}} == false
+        if: ${{ steps.run_check.outputs.needs_running}} == true
