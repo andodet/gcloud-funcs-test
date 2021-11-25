@@ -33,18 +33,12 @@ jobs:
                   fi
                 done
                 # Run tests if it does
-<<<<<<< Updated upstream
-                if ((is_go > 0)); then
-                  go test test*.go
-=======
                 if ((is_go == 0)); then
                   echo "$i: no tests found"
                   cd .. 
                   continue
                 else
-                  go test *_test.go
->>>>>>> Stashed changes
-                  cd ..
+                  go test ./...
                 fi
             fi
           done

@@ -1,3 +1,3 @@
-module github.com/gcloud-funs-test/func_4
+module github.com/andodet/gcloud-funcs-test/func_4
 
 go 1.16
