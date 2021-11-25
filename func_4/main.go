@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Adds two integers
+// Adds two integers together
 func Add(a int, b int) int {
 	var c = a + b
 	return c
