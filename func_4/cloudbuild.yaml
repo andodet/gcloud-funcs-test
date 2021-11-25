@@ -4,6 +4,13 @@ steps:
     args: ["version"]
     env: ["GOPATH=."]
 
+  - name: golang
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        go test -v ./...
+
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
       [
