@@ -28,7 +28,7 @@ jobs:
       - name: Run Cloud Build
         shell: bash
         run: |
-          for i in $(echo ${{ steps.git_diff.outputs.diff }}); do
+          for i in ${{ steps.git_diff.outputs.diff }}; do
             # Don't run CI 
             if [[ "$i" == ".github" ]]; then
               continue

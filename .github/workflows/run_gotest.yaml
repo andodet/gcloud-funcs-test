@@ -1,3 +1,4 @@
+# https://github.community/t/running-a-bash-script/141584
 on:
   pull_request:
     branches: [main, master, dev]
@@ -32,8 +33,17 @@ jobs:
                   fi
                 done
                 # Run tests if it does
+<<<<<<< Updated upstream
                 if ((is_go > 0)); then
                   go test test*.go
+=======
+                if ((is_go == 0)); then
+                  echo "$i: no tests found"
+                  cd .. 
+                  continue
+                else
+                  go test *_test.go
+>>>>>>> Stashed changes
                   cd ..
                 fi
             fi
