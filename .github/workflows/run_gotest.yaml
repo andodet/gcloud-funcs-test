@@ -38,7 +38,8 @@ jobs:
                   cd .. 
                   continue
                 else
-                  go test ./...
+                  go test
+                  cd ..
                 fi
             fi
           done
