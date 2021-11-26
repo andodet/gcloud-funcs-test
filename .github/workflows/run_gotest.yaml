@@ -20,5 +20,5 @@ jobs:
       - name: go test
         shell: bash
         run: |
-          chmod +x "${GITHUB_WORKSPACE}/.github/run_gotest.sh"
-          source ${GITHUB_WORKSPACE}/.github/run_gotest.sh
+          chmod +x "${GITHUB_WORKSPACE}/.github/gotest_run.sh"
+          source ${GITHUB_WORKSPACE}/.github/gotest_run.sh
